@@ -6,7 +6,9 @@
     "build": "tsc",
     "dev": "nodemon",
     "prisma": "prisma",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy"
   },
   "nodemonConfig": {
     "watch": [
