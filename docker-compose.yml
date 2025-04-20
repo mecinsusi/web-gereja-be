@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    container_name: express-app
+    container_name: gereja-app
     restart: always
     env_file:
       - .env
@@ -11,7 +11,7 @@ services:
       - postgres
 
   postgres:
-    image: postgres:15
+    image: postgres
     container_name: postgres
     restart: always
     environment:
@@ -21,6 +21,6 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5434:5434"
 volumes:
   pgdata:
