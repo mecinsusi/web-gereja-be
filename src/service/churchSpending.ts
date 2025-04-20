@@ -16,7 +16,8 @@ import {
 import {
   ChurchSpendingCreateParams,
   ChurchSpendingUpdateParams,
-} from "@pasains/types/churchSpending";
+} from "../types/churchSpending";
+
 
 export const createChurchSpendingService = async (
   spending: ChurchSpendingCreateParams,
