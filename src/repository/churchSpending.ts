@@ -1,7 +1,7 @@
 import {
   ChurchSpendingCreateParams,
   ChurchSpendingUpdateParams,
-} from "@pasains/types/churchSpending";
+} from "..//types/churchSpending";
 import prisma from "../configuration/db";
 
 export const createChurchSpending = async (

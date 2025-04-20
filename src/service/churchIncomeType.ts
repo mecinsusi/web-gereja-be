@@ -1,4 +1,4 @@
-import { ChurchIncomeTypeCreateParams } from "@pasains/types/churchIncomeType";
+import { ChurchIncomeTypeCreateParams } from "../types/churchIncomeType";
 import {
   createChurchIncomeType,
   deleteChurchIncomeType,
