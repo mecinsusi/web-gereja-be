@@ -20,14 +20,6 @@ export const app = express();
 var cors = require("cors");
 app.use(cors());
 
-const allowedOrigins = ["http://localhost:3000", "https://portal.mbkkasongan.org"];
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true, // ⬅️ This is important if you're using cookies or authorization
-  })
-);
 app.use(express.json());
 app.use(
   bodyParser.urlencoded({
