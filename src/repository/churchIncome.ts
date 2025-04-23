@@ -14,6 +14,10 @@ export const createChurchIncome = async (
         detail: churchIncome.detail,
         funds: churchIncome.funds,
         date: churchIncome.date,
+        bill: churchIncome.bill,
+        billNumber: churchIncome.billNumber,
+        createAt: churchIncome.createdAt,
+        createBy: churchIncome.createdBy,
         churchIncomeTypeIdRel: {
           connectOrCreate: {
             where: {

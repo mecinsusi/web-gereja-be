@@ -27,6 +27,7 @@ export const createChurchIncomeService = async (
   const existsIncomeType = await checkIcomeTypeName({
     incomeTypeName: income.incomeTypeName,
   });
+
   if (existsIncomeType) {
     incomeType = await getChurchIncomeType(income.incomeTypeId);
   } else {
@@ -37,13 +38,16 @@ export const createChurchIncomeService = async (
       code: income.code,
     });
   }
+
   if (!incomeType || !incomeType.id) {
     throw new Error("Failed to retrieve or create a valid income type");
   }
+
   try {
     const newIncomeType = await createChurchIncome({
       ...income,
       incomeTypeId: incomeType.id,
+      createdBy: income.createdBy,
     });
     return newIncomeType;
   } catch (error) {

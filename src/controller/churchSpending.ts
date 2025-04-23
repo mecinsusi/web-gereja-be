@@ -11,14 +11,16 @@ import {
 import { body, param, validationResult } from "express-validator";
 import { normalize } from "../utils/normalize";
 import { DataType } from "../types/dataType";
+import multer from "multer";
+const upload = multer({ dest: "../../uploads/" });
 
 export const churchSpendingRouter = Router();
 
 churchSpendingRouter.post(
   "/create",
+  upload.single("bill"),
   body("detail").isString().trim(),
   body("funds").isInt(),
-  body("bill").isString().trim(),
   body("billNumber").isString().trim(),
   body("spendingTypeName").isString().trim(),
   body("description").isString().trim(),
@@ -29,8 +31,18 @@ churchSpendingRouter.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+
     try {
-      const spending = await createChurchSpendingService(req.body);
+      const fileName = req.file?.filename || null;
+
+      const payload = {
+        ...req.body,
+        bill: fileName, // ganti dari blob ke filename
+        funds: parseInt(req.body.funds),
+      };
+
+      const spending = await createChurchSpendingService(payload);
+
       res.send(
         normalize(
           "Church spending created successfully",
@@ -44,7 +56,7 @@ churchSpendingRouter.post(
       console.log(error);
       res.status(400).json(normalize(message, "ERROR", DataType.null, null));
     }
-  },
+  }
 );
 
 churchSpendingRouter.put(
