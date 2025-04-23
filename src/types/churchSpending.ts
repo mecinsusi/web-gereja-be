@@ -9,6 +9,8 @@ export interface ChurchSpendingCreateParams {
   code: string;
   bill: string | null;
   billNumber: string | null;
+  createdBy: string;
+  createdAt: Date;
 }
 
 export interface ChurchSpendingUpdateParams {
@@ -22,8 +24,6 @@ export interface ChurchSpendingUpdateParams {
   code: string;
   bill: string | null;
   billNumber: string | null;
-  createdBy: string;
-  createdAt: Date;
   updatedAt: Date;
   updatedBy: bigint;
 }

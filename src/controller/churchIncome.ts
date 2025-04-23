@@ -12,13 +12,17 @@ import {
 import { body, param, validationResult } from "express-validator";
 import { normalize } from "../utils/normalize";
 import { DataType } from "../types/dataType";
+import multer from "multer";
+const upload = multer({ dest: "../../uploads/" });
 
 export const churchIncomeRouter = Router();
 
 churchIncomeRouter.post(
   "/create",
+  upload.single("bill"),
   body("detail").isString().trim(),
   body("funds").isInt(),
+  body("billNumber").isString().trim(),
   body("incomeTypeName").isString().trim(),
   body("description").isString().trim(),
   body("code").isString().trim(),
@@ -29,7 +33,16 @@ churchIncomeRouter.post(
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-      const income = await createChurchIncomeService(req.body);
+      const fileName = req.file?.filename || null;
+
+      const payload = {
+        ...req.body,
+        bill: fileName, // ganti dari blob ke filename
+        funds: parseInt(req.body.funds),
+      };
+
+      const income = await createChurchIncomeService(payload);
+
       res.send(
         normalize(
           "Church income created successfully",

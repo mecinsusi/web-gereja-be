@@ -7,6 +7,10 @@ export interface ChurchIncomeCreateParams {
   incomeTypeName: string;
   description: string;
   code: string;
+  bill: string | null;
+  billNumber: string | null;
+  createdAt: Date;
+  createdBy: undefined;
 }
 
 export interface ChurchIncomeUpdateParams {
@@ -18,8 +22,8 @@ export interface ChurchIncomeUpdateParams {
   incomeTypeName: string;
   description: string;
   code: string;
-  createdBy: string;
-  createdAt: Date;
+  bill: string | null;
+  billNumber: string | null;
   updatedAt: Date;
   updatedBy: bigint;
 }

@@ -1,4 +1,4 @@
-import { Response, Request, NextFunction } from "express";
+import { Request, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 
 //Middleware to check authorization
@@ -9,7 +9,7 @@ export const authorizationMiddleware = (
   next: NextFunction,
 ) => {
   //Skip authorization for this route
-  const publicRoute = ["/api/authentication", "api/healthz"];
+  const publicRoute = ["/api/authentication", "/api/healthz"];
 
   if (publicRoute.includes(req.path)) {
     return next;

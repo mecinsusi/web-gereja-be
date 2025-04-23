@@ -1,6 +1,7 @@
 import express from "express";
-
+import path from "path";
 import bodyParser from "body-parser";
+
 import { churchIncomeRouter } from "./controller/churchIncome";
 import { churchIncomeTypeRouter } from "./controller/churchIncomeType";
 import { churchSpendingRouter } from "./controller/churchSpending";
@@ -28,6 +29,7 @@ app.use(
 );
 
 //Public Routes
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use("/api/authentication", authenticationRouter);
 app.get("/api/healthz", (_req, res) => {
   res.send("OK");
