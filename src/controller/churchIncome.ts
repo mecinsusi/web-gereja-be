@@ -27,6 +27,7 @@ churchIncomeRouter.post(
   body("description").isString().trim(),
   body("code").isString().trim(),
   body("date").isISO8601(),
+  body("fundsType").optional().isIn(["CHURCH", "STORE", "FARM"]),
   async (req: Request, res: any) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -68,6 +69,9 @@ churchIncomeRouter.put(
   body("description").isString().trim(),
   body("code").isString().trim(),
   body("date").isISO8601(),
+  body("bill").isString().trim(),
+  body("billNumber").isString().trim(),
+  body("fundsType").optional().isIn(["CHURCH", "STORE", "FARM"]),
   async (req: Request, res: any) => {
     const errors = validationResult(req);
     console.log(`REQ_BODY_UPDATE_INCOME`, req.body);

@@ -10,7 +10,6 @@ export const loginService = async (email: string, password: string) => {
     {
       id: user.id,
       email: user.email,
-      role: user.role,
     },
     JWT_SECRET as string,
     {

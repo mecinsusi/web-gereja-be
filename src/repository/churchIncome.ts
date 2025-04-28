@@ -16,15 +16,16 @@ export const createChurchIncome = async (
         date: churchIncome.date,
         bill: churchIncome.bill,
         billNumber: churchIncome.billNumber,
+        fundsType: churchIncome.fundsType,
         createAt: churchIncome.createdAt,
         createBy: churchIncome.createdBy,
-        churchIncomeTypeIdRel: {
+        churchIncomeCodeIdRel: {
           connectOrCreate: {
             where: {
-              id: churchIncome.incomeTypeId,
+              id: churchIncome.incomeCodeId,
             },
             create: {
-              incomeTypeName: churchIncome.incomeTypeName,
+              incomeCodeName: churchIncome.incomeCodeName,
               code: churchIncome.code,
               description: churchIncome.description,
             },
@@ -45,7 +46,7 @@ export const updateChurchIncome = async (
     const currentChurchIncome = await prisma.churchIncome.findUnique({
       where: { id: churchIncomeId },
       include: {
-        churchIncomeTypeIdRel: true,
+        churchIncomeCodeIdRel: true,
       },
     });
     if (!currentChurchIncome) {
@@ -58,10 +59,13 @@ export const updateChurchIncome = async (
         detail: churchIncome.detail,
         funds: churchIncome.funds,
         date: churchIncome.date,
-        churchIncomeTypeIdRel: {
+        bill: churchIncome.bill,
+        billNumber: churchIncome.billNumber,
+        fundsType: churchIncome.fundsType,
+        churchIncomeCodeIdRel: {
           update: {
             data: {
-              incomeTypeName: churchIncome.incomeTypeName,
+              incomeCodeName: churchIncome.incomeCodeName,
               description: churchIncome.description,
               code: churchIncome.code,
             },
@@ -75,7 +79,10 @@ export const updateChurchIncome = async (
         detail: currentChurchIncome.detail,
         funds: currentChurchIncome.funds,
         date: currentChurchIncome.date,
-        incomeTypeId: currentChurchIncome.incomeTypeId,
+        bill: currentChurchIncome.bill,
+        billNumber: currentChurchIncome.billNumber,
+        fundsType: currentChurchIncome.fundsType,
+        incomeCodeId: currentChurchIncome.incomeCodeId,
         createAt: currentChurchIncome.createAt,
         updatedAt: new Date(),
       },
@@ -110,7 +117,7 @@ export const getChurchIncome = async (churchIncomeId: bigint) => {
   const churchIncome = await prisma.churchIncome.findUnique({
     where: { id: churchIncomeId },
     include: {
-      churchIncomeTypeIdRel: true,
+      churchIncomeCodeIdRel: true,
     },
   });
   return churchIncome;
@@ -121,7 +128,7 @@ export const getAllChurchIncome = async () => {
 
   return await prisma.churchIncome.findMany({
     where,
-    include: { churchIncomeTypeIdRel: true },
+    include: { churchIncomeCodeIdRel: true },
     orderBy: {
       date: "desc",
     },

@@ -3,17 +3,9 @@ import path from "path";
 import bodyParser from "body-parser";
 
 import { churchIncomeRouter } from "./controller/churchIncome";
-import { churchIncomeTypeRouter } from "./controller/churchIncomeType";
+import { churchIncomeCodeRouter } from "./controller/churchIncomeCode";
 import { churchSpendingRouter } from "./controller/churchSpending";
-import { churchSpendingTypeRouter } from "./controller/churchSpendingType";
-import { farmIncomeRouter } from "./controller/farmIncome";
-import { farmIncomeTypeRouter } from "./controller/farmIncomeType";
-import { farmSpendingRouter } from "./controller/farmSpending";
-import { farmSpendingTypeRouter } from "./controller/farmSpendingType";
-import { storeIncomeRouter } from "./controller/storeIncome";
-import { storeIncomeTypeRouter } from "./controller/storeIncomeType";
-import { storeSpendingTypeRouter } from "./controller/storeSpendingType";
-import { storeSpendingRouter } from "./controller/storeSpending";
+import { churchSpendingCodeRouter } from "./controller/churchSpendingCode";
 import { authenticationRouter } from "./controller/authentication";
 import { authorizationMiddleware } from "./middleware/authorization";
 
@@ -44,14 +36,6 @@ app.use(authorizationMiddleware);
 
 //Protected Routes
 app.use("/api/churchincome", churchIncomeRouter);
-app.use("/api/churchincometype", churchIncomeTypeRouter);
+app.use("/api/churchincometype", churchIncomeCodeRouter);
 app.use("/api/churchspending", churchSpendingRouter);
-app.use("/api/churchspendingtype", churchSpendingTypeRouter);
-app.use("/api/farmincome", farmIncomeRouter);
-app.use("/api/farmincometype", farmIncomeTypeRouter);
-app.use("/api/farmspending", farmSpendingRouter);
-app.use("/api/farmspendingtype", farmSpendingTypeRouter);
-app.use("/api/storeincome", storeIncomeRouter);
-app.use("/api/storeincometype", storeIncomeTypeRouter);
-app.use("/api/storespending", storeSpendingRouter);
-app.use("/api/storespendingtype", storeSpendingTypeRouter);
+app.use("/api/churchspendingtype", churchSpendingCodeRouter);

@@ -1,21 +1,21 @@
 import { Request, Response, Router } from "express";
 import {
-  createChurchSpendingTypeService,
-  updateChurchSpendingTypeService,
-  deleteChurchSpendingTypeService,
-  getChurchSpendingTypeService,
-  getAllChurchSpendingTypeService,
-} from "../service/churchSpendingType";
+  createChurchIncomeCodeService,
+  updateChurchIncomeCodeService,
+  deleteChurchIncomeCodeService,
+  getChurchIncomeCodeService,
+  getAllChurchIncomeCodeService,
+} from "../service/churchIncomeCode";
 
 import { body, param, validationResult } from "express-validator";
 import { normalize } from "../utils/normalize";
 import { DataType } from "../types/dataType";
 
-export const churchSpendingTypeRouter = Router();
+export const churchIncomeCodeRouter = Router();
 
-churchSpendingTypeRouter.post(
+churchIncomeCodeRouter.post(
   "/create",
-  body("spendingTypeName").isString().trim(),
+  body("incomeCodeName").isString().trim(),
   body("description").isString().trim(),
   body("code").isString().trim(),
   async (req: Request, res: any) => {
@@ -24,13 +24,13 @@ churchSpendingTypeRouter.post(
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-      const spendingType = await createChurchSpendingTypeService(req.body);
+      const incomeCode = await createChurchIncomeCodeService(req.body);
       res.send(
         normalize(
-          "Church spendingType created successfully",
+          "Church income code created successfully",
           "OK",
           DataType.object,
-          spendingType,
+          incomeCode,
         ),
       );
     } catch (error) {
@@ -41,10 +41,10 @@ churchSpendingTypeRouter.post(
   },
 );
 
-churchSpendingTypeRouter.put(
+churchIncomeCodeRouter.put(
   "/update/:id",
   param("id").isNumeric().trim(),
-  body("spendingTypeTypeName").isString().trim(),
+  body("incomeCodeName").isString().trim(),
   body("description").isString().trim(),
   body("code").isString().trim(),
   async (req: Request, res: any) => {
@@ -55,14 +55,14 @@ churchSpendingTypeRouter.put(
     }
     const id = BigInt(req.params.id);
     try {
-      const spendingType = await updateChurchSpendingTypeService(id, req.body);
-      console.log(`UPDATE_INCOME_CTRL`, spendingType);
+      const incomeCode = await updateChurchIncomeCodeService(id, req.body);
+      console.log(`UPDATE_INCOME_CTRL`, incomeCode);
       res.send(
         normalize(
-          "Church SpendingType updated successfully",
+          "Church Income Code updated successfully",
           "OK",
           DataType.object,
-          spendingType,
+          incomeCode,
         ),
       );
     } catch (error) {
@@ -72,7 +72,7 @@ churchSpendingTypeRouter.put(
   },
 );
 
-churchSpendingTypeRouter.delete(
+churchIncomeCodeRouter.delete(
   "/delete/:id",
   param("id").isNumeric().trim(),
   async (req: Request, res: any) => {
@@ -82,12 +82,12 @@ churchSpendingTypeRouter.delete(
     }
     const id = BigInt(req.params.id);
     try {
-      await deleteChurchSpendingTypeService(id);
+      await deleteChurchIncomeCodeService(id);
       res
         .status(200)
         .json(
           normalize(
-            "Church SpendingType deleted successfully",
+            "Church IncomeCode deleted successfully",
             "OK",
             DataType.null,
             null,
@@ -100,7 +100,7 @@ churchSpendingTypeRouter.delete(
   },
 );
 
-churchSpendingTypeRouter.get(
+churchIncomeCodeRouter.get(
   "/:id",
   param("id").isNumeric().trim(),
   async (req: Request, res: any) => {
@@ -110,14 +110,14 @@ churchSpendingTypeRouter.get(
     }
     const id = BigInt(req.params.id);
     try {
-      const spendingType = await getChurchSpendingTypeService(id);
-      if (spendingType) {
+      const incomeCode = await getChurchIncomeCodeService(id);
+      if (incomeCode) {
         res.send(
           normalize(
-            "Church SpendingType Detail found successfully",
+            "Church Income Code Detail found successfully",
             "OK",
             DataType.object,
-            spendingType,
+            incomeCode,
           ),
         );
       } else {
@@ -125,7 +125,7 @@ churchSpendingTypeRouter.get(
           .status(404)
           .json(
             normalize(
-              "Church SpendingType not found",
+              "Church IncomeCode not found",
               "ERROR",
               DataType.null,
               null,
@@ -140,16 +140,16 @@ churchSpendingTypeRouter.get(
   },
 );
 
-churchSpendingTypeRouter.get("/", async (_req: Request, res: Response) => {
+churchIncomeCodeRouter.get("/", async (_req: Request, res: Response) => {
   try {
-    const spendingType = await getAllChurchSpendingTypeService();
+    const incomeCode = await getAllChurchIncomeCodeService();
     res.send(
       normalize(
-        "Church SpendingType found successfully.",
+        "Church Income Code found successfully.",
         "OK",
-        DataType.array,
+        DataType.object,
         {
-          spendingType,
+          incomeCode,
         },
       ),
     );
