@@ -26,6 +26,7 @@ churchSpendingRouter.post(
   body("description").isString().trim(),
   body("code").isString().trim(),
   body("date").isISO8601(),
+  body("fundsType").optional().isIn(["CHURCH", "STORE", "FARM"]),
   async (req: Request, res: any) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -56,7 +57,7 @@ churchSpendingRouter.post(
       console.log(error);
       res.status(400).json(normalize(message, "ERROR", DataType.null, null));
     }
-  }
+  },
 );
 
 churchSpendingRouter.put(
@@ -70,6 +71,7 @@ churchSpendingRouter.put(
   body("description").isString().trim(),
   body("code").isString().trim(),
   body("date").isISO8601(),
+  body("fundsType").optional().isIn(["CHURCH", "STORE", "FARM"]),
   async (req: Request, res: any) => {
     const errors = validationResult(req);
     console.log(`REQ_BODY_UPDATE_SPENDING`, req.body);

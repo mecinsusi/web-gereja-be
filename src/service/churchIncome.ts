@@ -14,42 +14,42 @@ import {
   ChurchIncomeUpdateParams,
 } from "../types/churchIncome";
 import {
-  checkIcomeTypeName,
-  createChurchIncomeType,
-  getChurchIncomeType,
-} from "../repository/churchIncomeType";
+  checkIcomeCodeName,
+  createChurchIncomeCode,
+  getChurchIncomeCode,
+} from "../repository/churchIncomeCode";
 import { getAllChurchSpending } from "../repository/churchSpending";
 
 export const createChurchIncomeService = async (
   income: ChurchIncomeCreateParams,
 ) => {
-  let incomeType;
-  const existsIncomeType = await checkIcomeTypeName({
-    incomeTypeName: income.incomeTypeName,
+  let incomeCode;
+  const existsIncomeCode = await checkIcomeCodeName({
+    incomeCodeName: income.incomeCodeName,
   });
 
-  if (existsIncomeType) {
-    incomeType = await getChurchIncomeType(income.incomeTypeId);
+  if (existsIncomeCode) {
+    incomeCode = await getChurchIncomeCode(income.incomeCodeId);
   } else {
-    incomeType = await createChurchIncomeType({
-      id: income.incomeTypeId,
-      incomeTypeName: income.incomeTypeName,
+    incomeCode = await createChurchIncomeCode({
+      id: income.incomeCodeId,
+      incomeCodeName: income.incomeCodeName,
       description: income.description,
       code: income.code,
     });
   }
 
-  if (!incomeType || !incomeType.id) {
-    throw new Error("Failed to retrieve or create a valid income type");
+  if (!incomeCode || !incomeCode.id) {
+    throw new Error("Failed to retrieve or create a valid income code");
   }
 
   try {
-    const newIncomeType = await createChurchIncome({
+    const newIncomeCode = await createChurchIncome({
       ...income,
-      incomeTypeId: incomeType.id,
+      incomeCodeId: incomeCode.id,
       createdBy: income.createdBy,
     });
-    return newIncomeType;
+    return newIncomeCode;
   } catch (error) {
     console.log(error);
     if (error instanceof PrismaClientValidationError) {
@@ -129,8 +129,8 @@ export const getAllFinanceService = async () => {
     type: "income",
     detail: item.detail,
     amount: item.funds,
-    category: item.churchIncomeTypeIdRel?.incomeTypeName || "-",
-    code: item.churchIncomeTypeIdRel?.code || "-",
+    category: item.churchIncomeCodeIdRel?.incomeCodeName || "-",
+    code: item.churchIncomeCodeIdRel?.code || "-",
   }));
 
   const spendingFormatted = spending.map((item) => ({
@@ -139,8 +139,8 @@ export const getAllFinanceService = async () => {
     type: "spending",
     detail: item.detail,
     amount: -item.funds,
-    category: item.churchSpendingTypeIdRel?.spendingTypeName || "-",
-    code: item.churchSpendingTypeIdRel?.code || "-",
+    category: item.churchSpendingCodeIdRel?.spendingCodeName || "-",
+    code: item.churchSpendingCodeIdRel?.code || "-",
   }));
 
   const combined = [...incomeFormatted, ...spendingFormatted].sort(

@@ -1,7 +1,7 @@
 import {
   ChurchSpendingCreateParams,
   ChurchSpendingUpdateParams,
-} from "..//types/churchSpending";
+} from "../types/churchSpending";
 import prisma from "../configuration/db";
 
 export const createChurchSpending = async (
@@ -16,13 +16,14 @@ export const createChurchSpending = async (
         date: churchSpending.date,
         bill: churchSpending.bill || "",
         billNumber: churchSpending.billNumber || "",
-        churchSpendingTypeIdRel: {
+        fundsType: churchSpending.fundsType,
+        churchSpendingCodeIdRel: {
           connectOrCreate: {
             where: {
-              id: churchSpending.spendingTypeId,
+              id: churchSpending.spendingCodeId,
             },
             create: {
-              spendingTypeName: churchSpending.spendingTypeName,
+              spendingCodeName: churchSpending.spendingCodeName,
               code: churchSpending.code,
               description: churchSpending.description,
             },
@@ -43,7 +44,7 @@ export const updateChurchSpending = async (
     const currentChurchSpending = await prisma.churchSpending.findUnique({
       where: { id: churchSpendingId },
       include: {
-        churchSpendingTypeIdRel: true,
+        churchSpendingCodeIdRel: true,
       },
     });
     if (!currentChurchSpending) {
@@ -58,10 +59,11 @@ export const updateChurchSpending = async (
         date: churchSpending.date,
         bill: churchSpending.bill || "",
         billNumber: churchSpending.billNumber || "",
-        churchSpendingTypeIdRel: {
+        fundsType: churchSpending.fundsType,
+        churchSpendingCodeIdRel: {
           update: {
             data: {
-              spendingTypeName: churchSpending.spendingTypeName,
+              spendingCodeName: churchSpending.spendingCodeName,
               description: churchSpending.description,
               code: churchSpending.code,
             },
@@ -77,7 +79,8 @@ export const updateChurchSpending = async (
         date: currentChurchSpending.date,
         bill: currentChurchSpending.bill || "",
         billNumber: currentChurchSpending.billNumber || "",
-        spendingTypeId: currentChurchSpending.spendingTypeId,
+        fundsType: currentChurchSpending.fundsType,
+        spendingCodeId: currentChurchSpending.spendingCodeId,
         createAt: currentChurchSpending.createAt,
         updatedAt: new Date(),
       },
@@ -112,21 +115,21 @@ export const getChurchSpending = async (churchSpendingId: bigint) => {
   const churchSpending = await prisma.churchSpending.findUnique({
     where: { id: churchSpendingId },
     include: {
-      churchSpendingTypeIdRel: true,
+      churchSpendingCodeIdRel: true,
     },
   });
   return churchSpending;
 };
 
 export const getChurchIncome = async (props: {
-  incomeTypeId?: bigint | null;
+  incomeCodeId?: bigint | null;
   startDate?: Date;
   endDate?: Date;
 }) => {
   const where: any = {};
 
-  if (props.incomeTypeId) {
-    where.incomeTypeId = props.incomeTypeId;
+  if (props.incomeCodeId) {
+    where.incomeCodeId = props.incomeCodeId;
   }
 
   if (props.startDate || props.endDate) {
@@ -137,7 +140,7 @@ export const getChurchIncome = async (props: {
 
   return await prisma.churchIncome.findMany({
     where,
-    include: { churchIncomeTypeIdRel: true },
+    include: { churchIncomeCodeIdRel: true },
   });
 };
 
@@ -146,7 +149,7 @@ export const getAllChurchSpending = async () => {
 
   return await prisma.churchSpending.findMany({
     where,
-    include: { churchSpendingTypeIdRel: true },
+    include: { churchSpendingCodeIdRel: true },
     orderBy: {
       date: "desc",
     },

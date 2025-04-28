@@ -10,10 +10,10 @@ import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 const BASE_URL = process.env.BASE_URL || "http://localhost:5000"
 
 import {
-  checkSpendingTypeName,
-  createChurchSpendingType,
-  getChurchSpendingType,
-} from "../repository/churchSpendingType";
+  checkSpendingCodeName,
+  createChurchSpendingCode,
+  getChurchSpendingCode,
+} from "../repository/churchSpendingCode";
 import {
   ChurchSpendingCreateParams,
   ChurchSpendingUpdateParams,
@@ -22,29 +22,29 @@ import {
 export const createChurchSpendingService = async (
   spending: ChurchSpendingCreateParams,
 ) => {
-  let spendingType;
-  const existsSpendingType = await checkSpendingTypeName({
-    spendingTypeName: spending.spendingTypeName,
+  let spendingCode;
+  const existsSpendingCode = await checkSpendingCodeName({
+    spendingCodeName: spending.spendingCodeName,
   });
-  if (existsSpendingType) {
-    spendingType = await getChurchSpendingType(spending.spendingTypeId);
+  if (existsSpendingCode) {
+    spendingCode = await getChurchSpendingCode(spending.spendingCodeId);
   } else {
-    spendingType = await createChurchSpendingType({
-      id: spending.spendingTypeId,
-      spendingTypeName: spending.spendingTypeName,
+    spendingCode = await createChurchSpendingCode({
+      id: spending.spendingCodeId,
+      spendingCodeName: spending.spendingCodeName,
       description: spending.description,
       code: spending.code,
     });
   }
-  if (!spendingType || !spendingType.id) {
-    throw new Error("Failed to retrieve or create a valid spending type");
+  if (!spendingCode || !spendingCode.id) {
+    throw new Error("Failed to retrieve or create a valid spending code");
   }
   try {
-    const newSpendingType = await createChurchSpending({
+    const newSpendingCode = await createChurchSpending({
       ...spending,
-      spendingTypeId: spendingType.id,
+      spendingCodeId: spendingCode.id,
     });
-    return newSpendingType;
+    return newSpendingCode;
   } catch (error) {
     console.log(error);
     if (error instanceof PrismaClientValidationError) {
