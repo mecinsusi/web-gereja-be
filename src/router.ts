@@ -36,6 +36,6 @@ app.use(authorizationMiddleware);
 
 //Protected Routes
 app.use("/api/churchincome", churchIncomeRouter);
-app.use("/api/churchincometype", churchIncomeCodeRouter);
+app.use("/api/churchincomecode", churchIncomeCodeRouter);
 app.use("/api/churchspending", churchSpendingRouter);
-app.use("/api/churchspendingtype", churchSpendingCodeRouter);
+app.use("/api/churchspendingcode", churchSpendingCodeRouter);
