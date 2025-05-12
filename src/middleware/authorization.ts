@@ -9,10 +9,12 @@ export const authorizationMiddleware = (
   next: NextFunction,
 ) => {
   //Skip authorization for this route
-  const publicRoute = ["/api/authentication", "/api/healthz"];
+  const publicPrefixes = ["/api/authentication", "/api/healthz", "/uploads"];
 
-  if (publicRoute.includes(req.path)) {
-    return next;
+  const isPublic = publicPrefixes.some((prefix) => req.path.startsWith(prefix));
+
+  if (isPublic) {
+    return next();
   }
 
   const token = req.headers.authorization;
