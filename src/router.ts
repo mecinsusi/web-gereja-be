@@ -8,6 +8,7 @@ import { churchSpendingRouter } from "./controller/churchSpending";
 import { churchSpendingCodeRouter } from "./controller/churchSpendingCode";
 import { authenticationRouter } from "./controller/authentication";
 import { authorizationMiddleware } from "./middleware/authorization";
+import { financeRouter } from "./controller/finance";
 
 export const app = express();
 var cors = require("cors");
@@ -39,3 +40,4 @@ app.use("/api/churchincome", churchIncomeRouter);
 app.use("/api/churchincomecode", churchIncomeCodeRouter);
 app.use("/api/churchspending", churchSpendingRouter);
 app.use("/api/churchspendingcode", churchSpendingCodeRouter);
+app.use("/api/finance", financeRouter);

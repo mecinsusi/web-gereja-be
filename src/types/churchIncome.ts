@@ -13,7 +13,7 @@ export interface ChurchIncomeCreateParams {
   billNumber: string | null;
   fundsType: Type;
   createdAt: Date;
-  createdBy: undefined;
+  createdBy: bigint;
 }
 
 export interface ChurchIncomeUpdateParams {
