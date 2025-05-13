@@ -12,8 +12,7 @@ import {
 import { body, param, validationResult } from "express-validator";
 import { normalize } from "../utils/normalize";
 import { DataType } from "../types/dataType";
-import multer from "multer";
-const upload = multer({ dest: "../../uploads/" });
+import { upload } from "../middleware/upload";
 
 export const churchIncomeRouter = Router();
 
@@ -30,6 +29,7 @@ churchIncomeRouter.post(
   body("fundsType").optional().isIn(["CHURCH", "STORE", "FARM"]),
   async (req: Request, res: any) => {
     const errors = validationResult(req);
+    console.log("File upload:", req.file);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
