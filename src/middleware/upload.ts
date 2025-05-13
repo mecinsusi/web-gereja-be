@@ -1,17 +1,12 @@
 // src/middleware/upload.ts
 import multer from "multer";
 import path from "path";
-import fs from "fs";
 
-// Buat folder uploads jika belum ada
-const uploadDir = path.join(__dirname, "../../uploads");
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
+const uploadPath = path.join(__dirname, "..", "..", "uploads");
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
-    cb(null, uploadDir);
+    cb(null, uploadPath);
   },
   filename: (_req, file, cb) => {
     const ext = path.extname(file.originalname);
@@ -21,4 +16,3 @@ const storage = multer.diskStorage({
 });
 
 export const upload = multer({ storage });
-
