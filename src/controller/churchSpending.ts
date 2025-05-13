@@ -11,8 +11,7 @@ import {
 import { body, param, validationResult } from "express-validator";
 import { normalize } from "../utils/normalize";
 import { DataType } from "../types/dataType";
-import multer from "multer";
-const upload = multer({ dest: "../../uploads/" });
+import { upload } from "@gereja/middleware/upload";
 
 export const churchSpendingRouter = Router();
 

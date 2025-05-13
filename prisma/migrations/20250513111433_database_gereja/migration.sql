@@ -158,10 +158,10 @@ ALTER TABLE "UserHistory" ADD CONSTRAINT "UserHistory_createdBy_fkey" FOREIGN KE
 ALTER TABLE "UserHistory" ADD CONSTRAINT "UserHistory_updatedBy_fkey" FOREIGN KEY ("updatedBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserHistory" ADD CONSTRAINT "UserHistory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UserHistory" ADD CONSTRAINT "UserHistory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ChurchIncome" ADD CONSTRAINT "ChurchIncome_incomeCodeId_fkey" FOREIGN KEY ("incomeCodeId") REFERENCES "ChurchIncomeCode"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ChurchIncome" ADD CONSTRAINT "ChurchIncome_incomeCodeId_fkey" FOREIGN KEY ("incomeCodeId") REFERENCES "ChurchIncomeCode"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ChurchIncome" ADD CONSTRAINT "ChurchIncome_createBy_fkey" FOREIGN KEY ("createBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -170,7 +170,7 @@ ALTER TABLE "ChurchIncome" ADD CONSTRAINT "ChurchIncome_createBy_fkey" FOREIGN K
 ALTER TABLE "ChurchIncome" ADD CONSTRAINT "ChurchIncome_updatedBy_fkey" FOREIGN KEY ("updatedBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ChurchIncomeHistory" ADD CONSTRAINT "ChurchIncomeHistory_incomeCodeId_fkey" FOREIGN KEY ("incomeCodeId") REFERENCES "ChurchIncomeCode"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ChurchIncomeHistory" ADD CONSTRAINT "ChurchIncomeHistory_incomeCodeId_fkey" FOREIGN KEY ("incomeCodeId") REFERENCES "ChurchIncomeCode"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ChurchIncomeHistory" ADD CONSTRAINT "ChurchIncomeHistory_createBy_fkey" FOREIGN KEY ("createBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -185,7 +185,7 @@ ALTER TABLE "ChurchIncomeCode" ADD CONSTRAINT "ChurchIncomeCode_createBy_fkey" F
 ALTER TABLE "ChurchIncomeCode" ADD CONSTRAINT "ChurchIncomeCode_updatedBy_fkey" FOREIGN KEY ("updatedBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ChurchSpending" ADD CONSTRAINT "ChurchSpending_spendingCodeId_fkey" FOREIGN KEY ("spendingCodeId") REFERENCES "ChurchSpendingCode"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ChurchSpending" ADD CONSTRAINT "ChurchSpending_spendingCodeId_fkey" FOREIGN KEY ("spendingCodeId") REFERENCES "ChurchSpendingCode"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ChurchSpending" ADD CONSTRAINT "ChurchSpending_createBy_fkey" FOREIGN KEY ("createBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -194,7 +194,7 @@ ALTER TABLE "ChurchSpending" ADD CONSTRAINT "ChurchSpending_createBy_fkey" FOREI
 ALTER TABLE "ChurchSpending" ADD CONSTRAINT "ChurchSpending_updatedBy_fkey" FOREIGN KEY ("updatedBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ChurchSpendingHistory" ADD CONSTRAINT "ChurchSpendingHistory_spendingCodeId_fkey" FOREIGN KEY ("spendingCodeId") REFERENCES "ChurchSpendingCode"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ChurchSpendingHistory" ADD CONSTRAINT "ChurchSpendingHistory_spendingCodeId_fkey" FOREIGN KEY ("spendingCodeId") REFERENCES "ChurchSpendingCode"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ChurchSpendingHistory" ADD CONSTRAINT "ChurchSpendingHistory_createBy_fkey" FOREIGN KEY ("createBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
