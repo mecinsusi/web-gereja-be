@@ -11,7 +11,7 @@ import {
 import { body, param, validationResult } from "express-validator";
 import { normalize } from "../utils/normalize";
 import { DataType } from "../types/dataType";
-import { upload } from "@gereja/middleware/upload";
+import { upload } from "../middleware/upload";
 
 export const churchSpendingRouter = Router();
 
