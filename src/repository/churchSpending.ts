@@ -29,6 +29,12 @@ export const createChurchSpending = async (
             },
           },
         },
+        churchSpendingCreateByRel: {
+          connect: {
+            id: churchSpending.createdBy,
+            userName: churchSpending.userName,
+          },
+        },
       },
     });
     return createChurchSpending;
@@ -149,7 +155,7 @@ export const getAllChurchSpending = async () => {
 
   return await prisma.churchSpending.findMany({
     where,
-    include: { churchSpendingCodeIdRel: true },
+    include: { churchSpendingCodeIdRel: true, churchSpendingCreateByRel: true },
     orderBy: {
       date: "desc",
     },

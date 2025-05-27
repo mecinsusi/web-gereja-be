@@ -29,6 +29,12 @@ export const createChurchIncome = async (
             },
           },
         },
+        churchIncomeCreateByRel: {
+          connect: {
+            id: churchIncome.createdBy,
+            userName: churchIncome.userName,
+          },
+        },
       },
     });
     return createChurchIncome;
@@ -126,7 +132,7 @@ export const getAllChurchIncome = async () => {
 
   return await prisma.churchIncome.findMany({
     where,
-    include: { churchIncomeCodeIdRel: true },
+    include: { churchIncomeCodeIdRel: true, churchIncomeCreateByRel: true },
     orderBy: {
       date: "desc",
     },

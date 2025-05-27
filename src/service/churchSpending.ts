@@ -7,7 +7,7 @@ import {
   patchChurchSpending,
 } from "../repository/churchSpending";
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
-const BASE_URL = process.env.BASE_URL || "http://localhost:5000"
+const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 
 import {
   checkSpendingCodeName,
@@ -18,6 +18,7 @@ import {
   ChurchSpendingCreateParams,
   ChurchSpendingUpdateParams,
 } from "../types/churchSpending";
+import { userInfo } from "os";
 
 export const createChurchSpendingService = async (
   spending: ChurchSpendingCreateParams,
@@ -43,6 +44,7 @@ export const createChurchSpendingService = async (
     const newSpendingCode = await createChurchSpending({
       ...spending,
       spendingCodeId: spendingCode.id,
+      createdBy: spending.createdBy,
     });
     return newSpendingCode;
   } catch (error) {
@@ -106,10 +108,6 @@ export const getChurchSpendingService = async (spendingId: bigint) => {
 
 export const getAllChurchSpendingService = async () => {
   const allSpending = await getAllChurchSpending();
-  const updatedSpending = allSpending.map((item) => ({
-    ...item,
-    bill: item.bill ? `${BASE_URL}/uploads/${item.bill}` : null,
-  }));
   console.log(`ALL_CHURCH_SPENDING`, allSpending);
-  return updatedSpending;
+  return allSpending;
 };

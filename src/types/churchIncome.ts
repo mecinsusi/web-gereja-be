@@ -14,6 +14,7 @@ export interface ChurchIncomeCreateParams {
   fundsType: Type;
   createdAt: Date;
   createdBy: bigint;
+  userName: string;
 }
 
 export interface ChurchIncomeUpdateParams {

@@ -131,6 +131,7 @@ export const getAllFinanceService = async () => {
     amount: item.funds,
     category: item.churchIncomeCodeIdRel?.incomeCodeName || "-",
     code: item.churchIncomeCodeIdRel?.code || "-",
+    userName: item.churchIncomeCreateByRel?.userName || "-",
   }));
 
   const spendingFormatted = spending.map((item) => ({
@@ -141,6 +142,7 @@ export const getAllFinanceService = async () => {
     amount: -item.funds,
     category: item.churchSpendingCodeIdRel?.spendingCodeName || "-",
     code: item.churchSpendingCodeIdRel?.code || "-",
+    userName: item.churchSpendingCreateByRel?.userName || "-",
   }));
 
   const combined = [...incomeFormatted, ...spendingFormatted].sort(
