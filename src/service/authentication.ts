@@ -4,7 +4,10 @@ import { sign } from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // return user with jwt token
-export const loginService = async (email: string, password: string) => {
+export const loginService = async (
+  email: string,
+  password: string,
+) => {
   const user = await login(email, password);
   const token = sign(
     {

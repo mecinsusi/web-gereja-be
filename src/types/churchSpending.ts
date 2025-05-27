@@ -11,8 +11,9 @@ export interface ChurchSpendingCreateParams {
   code: string;
   bill: string | null;
   billNumber: string | null;
+  userName: string;
   fundsType: Type;
-  createdBy: string;
+  createdBy: bigint;
   createdAt: Date;
 }
 

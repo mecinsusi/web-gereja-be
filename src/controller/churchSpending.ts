@@ -26,7 +26,7 @@ churchSpendingRouter.post(
   body("code").isString().trim(),
   body("date").isISO8601(),
   body("fundsType").optional().isIn(["CHURCH", "STORE", "FARM"]),
-  async (req: Request, res: any) => {
+  async (req: any, res: any) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -39,6 +39,7 @@ churchSpendingRouter.post(
         ...req.body,
         bill: fileName, // ganti dari blob ke filename
         funds: parseInt(req.body.funds),
+        createdBy: req.user.id,
       };
 
       const spending = await createChurchSpendingService(payload);

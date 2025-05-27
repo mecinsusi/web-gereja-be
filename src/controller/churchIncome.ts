@@ -27,9 +27,8 @@ churchIncomeRouter.post(
   body("code").isString().trim(),
   body("date").isISO8601(),
   body("fundsType").optional().isIn(["CHURCH", "STORE", "FARM"]),
-  async (req: Request, res: any) => {
+  async (req: any, res: any) => {
     const errors = validationResult(req);
-    console.log("File upload:", req.file);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
@@ -40,6 +39,7 @@ churchIncomeRouter.post(
         ...req.body,
         bill: fileName, // ganti dari blob ke filename
         funds: parseInt(req.body.funds),
+        createdBy: req.user.id,
       };
 
       const income = await createChurchIncomeService(payload);
@@ -74,7 +74,6 @@ churchIncomeRouter.put(
   body("fundsType").optional().isIn(["CHURCH", "STORE", "FARM"]),
   async (req: Request, res: any) => {
     const errors = validationResult(req);
-    console.log(`REQ_BODY_UPDATE_INCOME`, req.body);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
@@ -163,8 +162,9 @@ churchIncomeRouter.get("/", async (_req: Request, res: Response) => {
   }
 });
 
-churchIncomeRouter.get("/finance", async (req: Request, res: Response) => {
+churchIncomeRouter.get("/finance", async (req: any, res: Response) => {
   try {
+    console.log(`REQ_BODY`, req.user);
     const finance = await getAllFinanceService();
     console.log(finance);
 
